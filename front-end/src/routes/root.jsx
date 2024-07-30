@@ -1,22 +1,9 @@
+import { Header, Item, Footer } from '../components';
+
 export default function Root() {
-  return(
+  return (
     <>
-      <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
-          <img
-            className="main-nav-logo-image"
-            src="src/assets/img/argentBankLogo.png"
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a className="main-nav-item" href="./sign-in.html">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-          </a>
-        </div>
-      </nav>
+      <Header />
       <main>
         <div className="hero">
           <section className="hero-content">
@@ -29,42 +16,24 @@ export default function Root() {
         </div>
         <section className="features">
           <h2 className="sr-only">Features</h2>
-          <div className="feature-item">
-            <img src="src/assets/img/icon-chat.png" alt="Chat Icon" className="feature-icon" />
-            <h3 className="feature-item-title">You are our #1 priority</h3>
-            <p>
-              Need to talk to a representative? You can get in touch through our
-              24/7 chat or through a phone call in less than 5 minutes.
-            </p>
-          </div>
-          <div className="feature-item">
-            <img
-              src="src/assets/img/icon-money.png"
-              alt="Chat Icon"
-              className="feature-icon"
-            />
-            <h3 className="feature-item-title">More savings means higher rates</h3>
-            <p>
-              The more you save with us, the higher your interest rate will be!
-            </p>
-          </div>
-          <div className="feature-item">
-            <img
-              src="src/assets/img/icon-security.png"
-              alt="Chat Icon"
-              className="feature-icon"
-            />
-            <h3 className="feature-item-title">Security you can trust</h3>
-            <p>
-              We use top of the line encryption to make sure your data and money
-              is always safe.
-            </p>
-          </div>
+          <Item
+            image="src/assets/img/icon-chat.png"
+            title="You are our #1 priority"
+            text="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
+          />
+          <Item 
+            image="src/assets/img/icon-money.png"
+            title="More savings means higher rates"
+            text="The more you save with us, the higher your interest rate will be!"
+          />
+          <Item
+            image="src/assets/img/icon-security.png"
+            title="Security you can trust"
+            text="We use top of the line encryption to make sure your data and money is always safe."
+          />
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+      <Footer />
     </>
   )
 }
