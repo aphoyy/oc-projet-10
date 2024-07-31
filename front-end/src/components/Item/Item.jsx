@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export function Item({ image, title, text}) {
+export function Item({ image, title, text }) {
     return (
         <div className="feature-item">
             <img

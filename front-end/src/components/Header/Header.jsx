@@ -1,8 +1,7 @@
-import { useState } from "react";
+import PropTypes from 'prop-types';
 
-export function Header() {
-    const [logged, setLogged] = useState(false);
-    return(
+export function Header({ logged }) {
+    return (
         <header>
             <nav className="main-nav">
                 <a className="main-nav-logo" href="/">
@@ -35,4 +34,8 @@ export function Header() {
             </nav>       
         </header>
     )
+}
+
+Header.propTypes = {
+    logged: PropTypes.bool,
 }

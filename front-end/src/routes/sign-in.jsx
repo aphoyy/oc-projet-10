@@ -1,6 +1,41 @@
-import { Header, Footer } from '../components';
+import { useNavigate } from 'react-router-dom';
+import { Header, Input, Footer } from '../components';
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+    userLogin(username, password);
+  }
+
+  async function userLogin(username, password) {
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+        method: "POST",
+        body: JSON.stringify({
+          "email": username,
+          "password": password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        alert("Incorrect email or password")
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const result = await response.json();
+      console.log(result.message);
+      console.log(result.body.token);
+      navigate("/user");
+    } catch (error) {
+      console.error (error.message);
+    }
+  }
+  
   return (
     <>
       <Header />
@@ -8,23 +43,30 @@ export default function SignIn() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form>
-            <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" />
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
-            </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
+          <form onSubmit={handleSubmit}>
+            <Input
+              wrapperClass="input-wrapper"
+              title="Username"
+              id="username"
+              type="text"
+            />
+            <Input
+              wrapperClass="input-wrapper"
+              title="Password"
+              id="password"
+              type="password"
+            />
+            <Input
+              wrapperClass="input-remember"
+              title="Remember me"
+              id="remember-me"
+              type="checkbox"
+              position="before"
+            />
             {/* PLACEHOLDER DUE TO STATIC SITE */}
-            <a href="/user" className="sign-in-button">Sign In</a>
+            {/* <a href="/user" className="sign-in-button">Sign In</a> */}
             {/* SHOULD BE THE BUTTON BELOW */}
-            {/* <button className="sign-in-button">Sign In</button> */}
+            <button className="sign-in-button">Sign In</button>
           </form>
         </section>
       </main>
