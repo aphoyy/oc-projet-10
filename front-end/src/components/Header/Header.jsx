@@ -1,6 +1,20 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { signOut } from '../../redux/editProfile';
+import { clearToken } from '../../redux/saveToken';
+import { useNavigate } from 'react-router-dom';
 
 export function Header({ logged, firstName }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    function SignOut(e) {
+        e.preventDefault();
+        dispatch(signOut());
+        dispatch(clearToken());
+        navigate('/');
+    }
+
     return (
         <header>
             <nav className="main-nav">
@@ -18,7 +32,7 @@ export function Header({ logged, firstName }) {
                             <i className="fa fa-user-circle"></i>
                             {firstName}
                         </a>
-                        <a className="main-nav-item" href="/">
+                        <a className="main-nav-item" href="/" onClick={SignOut}>
                             <i className="fa fa-sign-out"></i>
                             Sign Out
                         </a>        

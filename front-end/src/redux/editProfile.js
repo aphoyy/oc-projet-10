@@ -21,9 +21,15 @@ export const editProfile = createSlice({
         editUserName: (state, action) => {
             state.userName = action.payload;
         },
+        signOut: (state) => {
+            state.email = '';
+            state.firstName = '';
+            state.lastName = '';
+            state.userName = '';
+        }
     },
 });
 
-export const { editEmail, editFirstName, editLastName, editUserName } = editProfile.actions;
+export const { editEmail, editFirstName, editLastName, editUserName, signOut } = editProfile.actions;
 
 export default editProfile.reducer;

@@ -9,9 +9,12 @@ export const saveToken = createSlice({
         setToken: (state, action) => {
             state.token = action.payload;
         },
+        clearToken: (state) => {
+            state.token = '';
+        }
     },
 });
 
-export const { setToken } = saveToken.actions;
+export const { setToken, clearToken } = saveToken.actions;
 
 export default saveToken.reducer;
