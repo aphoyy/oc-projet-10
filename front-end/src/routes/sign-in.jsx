@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Header, Input, Footer } from '../components';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../redux/saveToken';
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,10 +32,10 @@ export default function SignIn() {
       }
       const result = await response.json();
       console.log(result.message);
-      console.log(result.body.token);
+      dispatch(setToken(result.body.token));
       navigate("/user");
     } catch (error) {
-      console.error (error.message);
+      console.error(error.message);
     }
   }
   

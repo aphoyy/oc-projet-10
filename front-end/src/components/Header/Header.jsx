@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export function Header({ logged }) {
+export function Header({ logged, firstName }) {
     return (
         <header>
             <nav className="main-nav">
@@ -16,7 +16,7 @@ export function Header({ logged }) {
                     <div>
                         <a className="main-nav-item" href="/user">
                             <i className="fa fa-user-circle"></i>
-                            Tony
+                            {firstName}
                         </a>
                         <a className="main-nav-item" href="/">
                             <i className="fa fa-sign-out"></i>
@@ -38,4 +38,5 @@ export function Header({ logged }) {
 
 Header.propTypes = {
     logged: PropTypes.bool,
+    firstName: PropTypes.string,
 }
