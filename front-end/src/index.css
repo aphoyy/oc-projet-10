@@ -292,3 +292,41 @@ body {
     width: 200px;
   }
 }
+
+.edit:not(input) {
+  color: white;
+}
+
+.edit input {
+  color: black;
+}
+
+.edit input:disabled {
+  background-color: #e7e7e7d0;
+  border: 2px solid #e7e7e721;
+  cursor: not-allowed;
+}
+
+.edit-input {
+  margin: 0 auto;
+  width: 245px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-input ~ .edit-input {
+  margin-top: 5px;
+}
+
+.button-container {
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.button-container button {
+  width: 45.5%;
+  cursor: pointer;
+}

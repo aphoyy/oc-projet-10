@@ -66,9 +66,6 @@ export default function SignIn() {
               type="checkbox"
               position="before"
             />
-            {/* PLACEHOLDER DUE TO STATIC SITE */}
-            {/* <a href="/user" className="sign-in-button">Sign In</a> */}
-            {/* SHOULD BE THE BUTTON BELOW */}
             <button className="sign-in-button">Sign In</button>
           </form>
         </section>
