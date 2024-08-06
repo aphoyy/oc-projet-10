@@ -1,27 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Header, Input, Button, Account, Footer } from '../components';
-import { editEmail, editFirstName, editLastName, editUserName } from '../redux/editProfile';
+import { setEmail, setFirstName, setLastName, setUserName } from '../redux/profileSlice';
 import { useEffect, useState } from 'react';
 
 export default function User() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [isActive, setActive] = useState(false);
 
-  const authToken = useSelector((state) => state.token.token);
-
+  // Get auth token from state if not found return to home page
+  const authToken = useSelector((state) => state.auth.token);
   useEffect(() => {
     if (authToken === '') {
-      alert("Not authentificated")
+      alert("Not authentificated");
       navigate("/");
     } else {
-      userProfile();
+      getUserProfile();
     }
   })
 
-  async function userProfile() {
+  // Get user profile from API
+  async function getUserProfile() {
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/profile", {
         method: "POST",
@@ -35,38 +35,39 @@ export default function User() {
         throw new Error(`Response status: ${response.status}`);
       }
       const result = await response.json();
-      console.log(result)
-      SetStore(result.body);
+      setUserProfile(result.body);
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  function SetStore(data) {
-    dispatch(editEmail(data.email));
-    dispatch(editFirstName(data.firstName));
-    dispatch(editLastName(data.lastName));
-    dispatch(editUserName(data.userName));
+  // Set all informations to the store
+  function setUserProfile(data) {
+    dispatch(setEmail(data.email));
+    dispatch(setFirstName(data.firstName));
+    dispatch(setLastName(data.lastName));
+    dispatch(setUserName(data.userName));
   }
 
-  const userInfo = useSelector((state) => state.profile);
-
+  // Display edit username form
   function openEditMode() {
     setActive(true);
   }
 
+  // Hide edit username form
   function closeEditMode() {
     console.log("CLOSE EDIT MODE")
     setActive(false);
   }
 
-  async function saveUserName() {
-    const username = document.getElementById('username').value;
+  // PUT request to set new username and save it to the store
+  async function editUserName() {
+    const userName = document.getElementById('username').value;
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/profile", {
         method: "PUT",
         body: JSON.stringify({
-          "userName": username,
+          "userName": userName,
         }),
         headers: {
           "Authorization": "Bearer " + authToken,
@@ -77,14 +78,15 @@ export default function User() {
         alert("Error when saving username");
         throw new Error(`Response status: ${response.status}`);
       }
-      const result = await response.json()
-      console.log(result);
-      dispatch(editUserName(username));
+      dispatch(setUserName(userName));
       closeEditMode();
     } catch (error) {
       console.error(error.message);
     }
   }
+
+  // Get user informations from the store
+  const userInfo = useSelector((state) => state.profile);
 
   return (
     <>
@@ -97,7 +99,7 @@ export default function User() {
             <Input wrapperClass="edit-input" title="First name:" id="firstname" type="text" isDisabled={true} placeholder={userInfo.firstName} />
             <Input wrapperClass="edit-input" title="Last name:" id="lastname" type="text" isDisabled={true} placeholder={userInfo.lastName} />
             <div className='button-container'>
-              <Button content="Save" onClick={saveUserName} />
+              <Button content="Save" onClick={editUserName} />
               <Button content="Cancel" onClick={closeEditMode} />
             </div>
           </div>

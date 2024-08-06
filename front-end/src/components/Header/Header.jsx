@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { signOut } from '../../redux/editProfile';
-import { clearToken } from '../../redux/saveToken';
+import { signOut } from '../../redux/profileSlice';
+import { clearToken } from '../../redux/tokenSlice';
 import { useNavigate } from 'react-router-dom';
 
 export function Header({ logged, firstName }) {
@@ -27,7 +27,7 @@ export function Header({ logged, firstName }) {
                 <h1 className="sr-only">Argent Bank</h1>
                 </a>
                 {logged ? (
-                    <div>
+                    <div className="main-nav-item-wrapper">
                         <a className="main-nav-item" href="/user">
                             <i className="fa fa-user-circle"></i>
                             {firstName}

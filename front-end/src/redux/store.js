@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import editProfile from './editProfile';
-import saveToken from './saveToken';
+import profileSlice from './profileSlice';
+import tokenSlice from './tokenSlice';
 
 export default configureStore({
     reducer: {
-        profile: editProfile,
-        token: saveToken,
+        profile: profileSlice,
+        auth: tokenSlice,
     },
 })

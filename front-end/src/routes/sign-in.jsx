@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Header, Input, Footer } from '../components';
 import { useDispatch } from 'react-redux';
-import { setToken } from '../redux/saveToken';
+import { setToken } from '../redux/tokenSlice';
 
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
+  // Prevent default submit and set form data
   const handleSubmit = (e) => {
     e.preventDefault();
     const username = e.target.username.value;
@@ -14,6 +15,7 @@ export default function SignIn() {
     userLogin(username, password);
   }
 
+  // POST request to login
   async function userLogin(username, password) {
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/login", {

@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/root'
@@ -24,9 +24,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  // </React.StrictMode>,
+  </React.StrictMode>,
 )

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const editProfile = createSlice({
+export const profileSlice = createSlice({
     name: 'profile',
     initialState: {
         email: '',
@@ -9,16 +9,16 @@ export const editProfile = createSlice({
         userName: '',
     },
     reducers: {
-        editEmail: (state, action) => {
+        setEmail: (state, action) => {
             state.email = action.payload;
         },
-        editFirstName: (state, action) => {
+        setFirstName: (state, action) => {
             state.firstName = action.payload;
         },
-        editLastName: (state, action) => {
+        setLastName: (state, action) => {
             state.lastName = action.payload;
         },
-        editUserName: (state, action) => {
+        setUserName: (state, action) => {
             state.userName = action.payload;
         },
         signOut: (state) => {
@@ -30,6 +30,6 @@ export const editProfile = createSlice({
     },
 });
 
-export const { editEmail, editFirstName, editLastName, editUserName, signOut } = editProfile.actions;
+export const { setEmail, setFirstName, setLastName, setUserName, signOut } = profileSlice.actions;
 
-export default editProfile.reducer;
+export default profileSlice.reducer;
