@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/account/{id}:
+  /user/account/{accountId}:
     get:
       security:
         - Bearer: []
@@ -110,7 +110,7 @@ paths:
       summary: Gets an account by ID
       description: API for fetching an account
       parameters:
-        - name: id
+        - name: accountId
           in: path
           description: Account ID
           type: integer
@@ -124,9 +124,13 @@ paths:
             $ref: '#/definitions/AccountResponse'
         '401':
           description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
         '500':
           description: Internal Server Error
-  /user/account/{id}/note:
+  /user/account/{accountId}/transaction/{transactionId}/note:
     post:
       security:
         - Bearer: []
@@ -135,9 +139,14 @@ paths:
       summary: Add note
       description: API to add a note on a transaction
       parameters:
-        - name: id
+        - name: accountId
           in: path
           description: Account ID
+          type: integer
+          required: true
+        - name: transactionId
+          in: path
+          description: Transaction ID
           type: integer
           required: true
         - in: body
@@ -153,25 +162,28 @@ paths:
           description: Note has been successfully added
         '401':
           description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
         '500':
           description: Internal Server Error
-  /user/account/{id}/{noteId}:
     put:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: Edit note by ID
-      description: API to edit a note on a transaction
+      summary: Edit note
+      description: API to edit the note on a transaction
       parameters:
-        - name: id
+        - name: accountId
           in: path
           description: Account ID
           type: integer
           required: true
-        - name: noteId
+        - name: transactionId
           in: path
-          description: Note ID
+          description: Account ID
           type: integer
           required: true
         - in: body
@@ -187,6 +199,10 @@ paths:
           description: Note has been successfully edited
         '401':
           description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
         '500':
           description: Internal Server Error
     delete:
@@ -194,17 +210,17 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: Delete note by ID
-      description: API to delete a note on a transaction
+      summary: Delete note
+      description: API to delete the note on a transaction
       parameters:
-        - name: id
+        - name: accountId
           in: path
           description: Account ID
           type: integer
           required: true
-        - name: noteId
+        - name: transactionId
           in: path
-          description: Note ID
+          description: Account ID
           type: integer
           required: true
       produces:
@@ -214,6 +230,48 @@ paths:
           description: Note has been successfully deleted
         '401':
           description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+  /user/account/{accountId}/transaction/{transactionId}/category:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Modify category
+      description: API to modify category on a transaction
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          type: integer
+          required: true
+        - name: transactionId
+          in: path
+          description: Transaction ID
+          type: integer
+          required: true
+        - in: body
+          name: body
+          description: Note Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Category'
+      produces:
+        - application/json
+      responses:
+        '204':
+          description: Category has been successfully modifed
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
         '500':
           description: Internal Server Error
 securityDefinitions:
@@ -288,12 +346,19 @@ definitions:
                 type: string
               amount:
                 type: integer
+              transactionType:
+                type: string
+              category:
+                type: string
               note:
-                type: array
-                items:
-                    type: string
+                type: string
   Note:
     type: object
     properties:
-      text:
+      note:
+        type: string
+  Category:
+    type: object
+    properties:
+      category:
         type: string
