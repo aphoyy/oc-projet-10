@@ -29,6 +29,7 @@ http://localhost:3001/api-docs
 - JavaScript
 - React
 - React Router
+- Redux
 - Vite
 - npm
 - Swagger
